@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { formatDate } from '../utils/dateUtils';
 import './LDAPConfigPage.css';
 import './DataPage.css';
 
-function LDAPConfigPage() {
+function LDAPConfigPage({ userTimezone = 'UTC' }) {
   const [config, setConfig] = useState({
     enabled: false,
     server: '',
@@ -452,7 +453,7 @@ function LDAPConfigPage() {
                         {mapping.site_role}
                       </span>
                     </td>
-                    <td>{new Date(mapping.created_at).toLocaleDateString()}</td>
+                    <td>{formatDate(mapping.created_at, userTimezone)}</td>
                     <td>
                       <button
                         className="btn-delete"

@@ -205,8 +205,8 @@ function AppContent() {
               <Route path="/vcd-config" element={<VCDConfigPage />} />
               <Route path="/usage-meter-config" element={<UsageMeterConfigPage />} />
               <Route path="/user-management" element={<UserManagementPage userTimezone={userTimezone} />} />
-              <Route path="/ssl-config" element={<SSLConfigPage />} />
-              <Route path="/ldap-config" element={<LDAPConfigPage />} />
+              <Route path="/ssl-config" element={<SSLConfigPage userTimezone={userTimezone} />} />
+              <Route path="/ldap-config" element={<LDAPConfigPage userTimezone={userTimezone} />} />
             </>
           )}
         </Routes>

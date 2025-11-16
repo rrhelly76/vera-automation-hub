@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function VSphereClustersPage({ onRefresh }) {
+function VSphereClustersPage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [clusters, setClusters] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -202,7 +203,7 @@ function VSphereClustersPage({ onRefresh }) {
       cluster.compliance_status || 'Unknown',
       cluster.versions.join('; '),
       cluster.hardware_vendors.join('; '),
-      new Date(cluster.last_updated).toLocaleString()
+      formatDateTime(cluster.last_updated, userTimezone)
     ]);
 
     // Combine headers and rows
@@ -613,7 +614,7 @@ function VSphereClustersPage({ onRefresh }) {
                   </div>
                 </div>
                 <div className="last-updated">
-                  {new Date(cluster.last_updated).toLocaleString()}
+                  {formatDateTime(cluster.last_updated, userTimezone)}
                 </div>
               </div>
             ))}

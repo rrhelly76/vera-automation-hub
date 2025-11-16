@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { formatDateTime } from '../utils/dateUtils';
 import './SSLConfigPage.css';
 import './DataPage.css';
 
-function SSLConfigPage() {
+function SSLConfigPage({ userTimezone = 'UTC' }) {
   const [sslStatus, setSSLStatus] = useState(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -103,7 +104,7 @@ function SSLConfigPage() {
   const formatDate = (dateString) => {
     if (!dateString) return 'N/A';
     try {
-      return new Date(dateString).toLocaleString();
+      return formatDateTime(dateString, userTimezone);
     } catch {
       return dateString;
     }

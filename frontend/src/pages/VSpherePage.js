@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function VSpherePage({ onRefresh }) {
+function VSpherePage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -241,7 +242,7 @@ function VSpherePage({ onRefresh }) {
       host.metadata.serial_number,
       host.metadata.connection_state,
       host.metadata.power_state,
-      new Date(host.last_updated).toLocaleString()
+      formatDateTime(host.last_updated, userTimezone)
     ]);
 
     // Combine headers and rows
@@ -682,7 +683,7 @@ function VSpherePage({ onRefresh }) {
                       <span className="version-badge">{item.version}</span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -701,10 +702,11 @@ function VSpherePage({ onRefresh }) {
       )}
 
       {selectedComponent && (
-        <VersionHistory 
+        <VersionHistory
           component={selectedComponent}
           technology="vsphere"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>

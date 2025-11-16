@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function VMwarePage({ onRefresh }) {
+function VMwarePage({ onRefresh, userTimezone = 'UTC' }) {
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pulling, setPulling] = useState(false);
@@ -220,7 +221,7 @@ function VMwarePage({ onRefresh }) {
       host.metadata.serial_number,
       host.metadata.connection_state,
       host.metadata.power_state,
-      new Date(host.last_updated).toLocaleString()
+      formatDateTime(host.last_updated, userTimezone)
     ]);
 
     // Combine headers and rows
@@ -567,7 +568,7 @@ function VMwarePage({ onRefresh }) {
                       <span className="version-badge">{item.version}</span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -586,10 +587,11 @@ function VMwarePage({ onRefresh }) {
       )}
 
       {selectedComponent && (
-        <VersionHistory 
+        <VersionHistory
           component={selectedComponent}
           technology="vmware"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>
