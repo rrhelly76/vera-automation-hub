@@ -1,0 +1,121 @@
+/* vSphere Landing Page Styles */
+.vsphere-landing-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.vsphere-landing-header {
+  margin-bottom: 3rem;
+}
+
+.vsphere-landing-header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.vsphere-landing-header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}
+
+.vsphere-landing-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.vsphere-landing-card {
+  background: white;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.vsphere-landing-card:hover {
+  border-color: #2196f3;
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+  transform: translateY(-2px);
+}
+
+.vsphere-landing-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.vsphere-landing-card h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.vsphere-landing-card p {
+  color: #7f8c8d;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.vsphere-landing-card-arrow {
+  font-size: 1.5rem;
+  color: #2196f3;
+  align-self: flex-end;
+}
+
+/* Dark Mode Support */
+.dark-mode .vsphere-landing-page {
+  color: #e0e0e0;
+}
+
+.dark-mode .vsphere-landing-header h1 {
+  color: #e0e0e0;
+}
+
+.dark-mode .vsphere-landing-header p {
+  color: #b0b0b0;
+}
+
+.dark-mode .vsphere-landing-card {
+  background-color: #242424;
+  border-color: #333;
+  color: #e0e0e0;
+}
+
+.dark-mode .vsphere-landing-card:hover {
+  border-color: #4da6ff;
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.2);
+}
+
+.dark-mode .vsphere-landing-card h2 {
+  color: #e0e0e0;
+}
+
+.dark-mode .vsphere-landing-card p {
+  color: #b0b0b0;
+}
+
+.dark-mode .vsphere-landing-card-arrow {
+  color: #4da6ff;
+}
+
+@media (max-width: 768px) {
+  .vsphere-landing-page {
+    padding: 1rem;
+  }
+
+  .vsphere-landing-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .vsphere-landing-header h1 {
+    font-size: 1.5rem;
+  }
+}

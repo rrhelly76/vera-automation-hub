@@ -1,0 +1,120 @@
+.settings-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settings-header {
+  margin-bottom: 3rem;
+}
+
+.settings-header h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.settings-header p {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+}
+
+.settings-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.settings-card {
+  background: white;
+  border: 2px solid #e1e8ed;
+  border-radius: 8px;
+  padding: 2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.settings-card:hover {
+  border-color: #0066cc;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.15);
+  transform: translateY(-2px);
+}
+
+.settings-card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.settings-card h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.settings-card p {
+  color: #7f8c8d;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.settings-card-arrow {
+  font-size: 1.5rem;
+  color: #0066cc;
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 1rem;
+  }
+
+  .settings-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark Mode Support */
+.dark-mode .settings-page {
+  color: #e0e0e0;
+}
+
+.dark-mode .settings-header h1 {
+  color: #e0e0e0;
+}
+
+.dark-mode .settings-header p {
+  color: #b0b0b0;
+}
+
+.dark-mode .settings-card {
+  background-color: #242424;
+  border-color: #333;
+  color: #e0e0e0;
+}
+
+.dark-mode .settings-card:hover {
+  border-color: #4da6ff;
+  box-shadow: 0 4px 12px rgba(77, 166, 255, 0.2);
+}
+
+.dark-mode .settings-card h2 {
+  color: #e0e0e0;
+}
+
+.dark-mode .settings-card p {
+  color: #b0b0b0;
+}
+
+.dark-mode .settings-card-arrow {
+  color: #4da6ff;
+}

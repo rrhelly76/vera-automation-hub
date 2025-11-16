@@ -1,0 +1,89 @@
+.user-management-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.users-table-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background-color: #ecf0f1;
+}
+
+.users-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #2c3e50;
+  border-bottom: 2px solid #bdc3c7;
+}
+
+.users-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.users-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.username-cell {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.role-admin {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.role-support {
+  background-color: #f39c12;
+  color: white;
+}
+
+.role-readonly {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #7f8c8d;
+}
