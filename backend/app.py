@@ -5,14 +5,40 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from functools import wraps
 import sqlite3
 import json
-from collectors.vsphere_collector import VSphereCollector
-from collectors.nsx_collector import NSXCollector
-from collectors.vcd_collector import VCDCollector
-from collectors.usage_meter_collector import UsageMeterCollector
-from ldap_auth import LDAPAuthenticator
 import os
 import ssl
 import pytz
+
+# Try to import collectors and LDAP - they may not be available if dependencies aren't installed
+try:
+    from collectors.vsphere_collector import VSphereCollector
+except ImportError:
+    print("Warning: VSphere collector not available (pyVmomi not installed)")
+    VSphereCollector = None
+
+try:
+    from collectors.nsx_collector import NSXCollector
+except ImportError:
+    print("Warning: NSX collector not available")
+    NSXCollector = None
+
+try:
+    from collectors.vcd_collector import VCDCollector
+except ImportError:
+    print("Warning: VCD collector not available")
+    VCDCollector = None
+
+try:
+    from collectors.usage_meter_collector import UsageMeterCollector
+except ImportError:
+    print("Warning: Usage Meter collector not available")
+    UsageMeterCollector = None
+
+try:
+    from ldap_auth import LDAPAuthenticator
+except ImportError:
+    print("Warning: LDAP authentication not available (python-ldap not installed)")
+    LDAPAuthenticator = None
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
@@ -281,11 +307,11 @@ def login():
         return jsonify({'success': False, 'error': 'Username and password required'}), 400
     
     # Initialize LDAP authenticator if not already done
-    if ldap_auth is None:
+    if ldap_auth is None and LDAPAuthenticator is not None:
         ldap_auth = LDAPAuthenticator()
-    
+
     # Try LDAP authentication first if enabled
-    if ldap_auth.is_enabled():
+    if ldap_auth and ldap_auth.is_enabled():
         success, role, error = ldap_auth.authenticate(username, password)
         if success:
             # Create or update user in local database for session management
@@ -2079,8 +2105,12 @@ if __name__ == '__main__':
     # Generate self-signed certificate if SSL is enabled and no certificate exists
     if SSL_ENABLED and not os.path.exists(SSL_CERT_PATH):
         print("\nGenerating self-signed SSL certificate...")
-        from ssl_manager import generate_self_signed_cert
-        generate_self_signed_cert()
+        try:
+            from ssl_manager import generate_self_signed_cert
+            generate_self_signed_cert()
+        except ImportError as e:
+            print(f"Warning: Could not generate SSL certificate: {e}")
+            print("SSL will be disabled. Install cryptography package to enable SSL.")
     
     print("=" * 60)
     print("Databank Cloud Version Tracker Backend")
