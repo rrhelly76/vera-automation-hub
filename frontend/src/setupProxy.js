@@ -7,9 +7,12 @@ module.exports = function(app) {
       target: 'http://localhost:5000',
       changeOrigin: true,
       secure: false,
-      logLevel: 'debug',
+      // Prepend /api back after it's stripped by the proxy
+      pathRewrite: function (path, req) {
+        return '/api' + path;
+      },
       onProxyReq: (proxyReq, req, res) => {
-        console.log('Proxying request:', req.method, req.path);
+        console.log('Proxying request:', req.method, req.path, '-> /api' + req.path);
       },
       onProxyRes: (proxyRes, req, res) => {
         console.log('Proxy response:', proxyRes.statusCode, req.path);
