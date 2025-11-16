@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function DashboardPage({ technologies, syncStatus }) {
+function DashboardPage({ technologies, syncStatus, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [stats, setStats] = useState({
     vsphere: { vcenters: 0, hosts: 0, vms: 0, clusters: 0 },
@@ -219,7 +220,7 @@ function DashboardPage({ technologies, syncStatus }) {
               {status && (
                 <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #ecf0f1' }}>
                   <div style={{ fontSize: '0.85rem', color: '#7f8c8d' }}>
-                    Last Sync: {new Date(status.last_sync_time).toLocaleString()}
+                    Last Sync: {formatDateTime(status.last_sync_time, userTimezone)}
                   </div>
                   <div style={{ 
                     marginTop: '0.5rem',

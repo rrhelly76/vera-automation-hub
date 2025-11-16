@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function VCenterPage({ onRefresh }) {
+function VCenterPage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [versions, setVersions] = useState([]);
   const [allVsphereData, setAllVsphereData] = useState([]);
@@ -108,7 +109,7 @@ function VCenterPage({ onRefresh }) {
         vcenter.metadata.hostname,
         hostCount,
         vmCount,
-        new Date(vcenter.last_updated).toLocaleString()
+        formatDateTime(vcenter.last_updated, userTimezone)
       ];
     });
 
@@ -341,7 +342,7 @@ function VCenterPage({ onRefresh }) {
                   <span className="version-badge">{item.version}</span>
                 </div>
                 <div className="last-updated">
-                  {new Date(item.last_updated).toLocaleString()}
+                  {formatDateTime(item.last_updated, userTimezone)}
                 </div>
                 <div>
                   <button 
@@ -359,10 +360,11 @@ function VCenterPage({ onRefresh }) {
       )}
 
       {selectedComponent && (
-        <VersionHistory 
+        <VersionHistory
           component={selectedComponent}
           technology="vsphere"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>

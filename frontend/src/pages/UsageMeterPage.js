@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function UsageMeterPage({ onRefresh }) {
+function UsageMeterPage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -134,7 +135,7 @@ function UsageMeterPage({ onRefresh }) {
           component.metadata.environment,
           '-',
           '-',
-          new Date(component.last_updated).toLocaleString()
+          formatDateTime(component.last_updated, userTimezone)
         ];
       } else {
         return [
@@ -143,10 +144,10 @@ function UsageMeterPage({ onRefresh }) {
           component.version,
           component.metadata.environment,
           component.metadata.meter,
-          typeof component.metadata.status === 'object' 
+          typeof component.metadata.status === 'object'
             ? (component.metadata.status.text || component.metadata.status.statusCode || 'Unknown')
             : (component.metadata.status || 'Unknown'),
-          new Date(component.last_updated).toLocaleString()
+          formatDateTime(component.last_updated, userTimezone)
         ];
       }
     });
@@ -372,7 +373,7 @@ function UsageMeterPage({ onRefresh }) {
                       </span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -442,7 +443,7 @@ function UsageMeterPage({ onRefresh }) {
                       })()}
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -466,6 +467,7 @@ function UsageMeterPage({ onRefresh }) {
           component={selectedComponent}
           technology="usage-meter"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>

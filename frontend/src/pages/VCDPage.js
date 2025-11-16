@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function VCDPage({ onRefresh }) {
+function VCDPage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -126,7 +127,7 @@ function VCDPage({ onRefresh }) {
         instance.metadata.org_count || 0,
         cells.length,
         activeCells,
-        new Date(instance.last_updated).toLocaleString()
+        formatDateTime(instance.last_updated, userTimezone)
       ];
     });
 
@@ -370,7 +371,7 @@ function VCDPage({ onRefresh }) {
                       )}
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -443,10 +444,11 @@ function VCDPage({ onRefresh }) {
       )}
 
       {selectedComponent && (
-        <VersionHistory 
+        <VersionHistory
           component={selectedComponent}
           technology="vcd"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>

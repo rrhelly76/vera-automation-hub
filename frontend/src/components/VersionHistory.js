@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { formatDateTime } from '../utils/dateUtils';
 
-function VersionHistory({ component, technology, onClose }) {
+function VersionHistory({ component, technology, onClose, userTimezone = 'UTC' }) {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -61,7 +62,7 @@ function VersionHistory({ component, technology, onClose }) {
                   )}
                 </div>
                 <div className="timestamp">
-                  {new Date(item.timestamp).toLocaleString()}
+                  {formatDateTime(item.timestamp, userTimezone)}
                 </div>
                 {item.metadata && item.metadata.full_name && (
                   <div style={{ marginTop: '0.5rem', fontSize: '0.9rem', color: '#7f8c8d' }}>

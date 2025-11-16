@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import axios from 'axios';
 import VersionHistory from '../components/VersionHistory';
+import { formatDateTime } from '../utils/dateUtils';
 import './DataPage.css';
 
-function NSXPage({ onRefresh }) {
+function NSXPage({ onRefresh, userTimezone = 'UTC' }) {
   const { hasPermission } = useAuth();
   const [versions, setVersions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -163,7 +164,7 @@ function NSXPage({ onRefresh }) {
           '-',
           '-',
           '-',
-          new Date(component.last_updated).toLocaleString()
+          formatDateTime(component.last_updated, userTimezone)
         ];
       } else if (component.metadata.type === 'edge-node') {
         return [
@@ -178,7 +179,7 @@ function NSXPage({ onRefresh }) {
           component.metadata.deployment_type,
           '-',
           '-',
-          new Date(component.last_updated).toLocaleString()
+          formatDateTime(component.last_updated, userTimezone)
         ];
       } else if (component.metadata.type === 'host-transport-node') {
         return [
@@ -193,7 +194,7 @@ function NSXPage({ onRefresh }) {
           '-',
           component.metadata.os_type,
           component.metadata.maintenance_mode,
-          new Date(component.last_updated).toLocaleString()
+          formatDateTime(component.last_updated, userTimezone)
         ];
       }
     });
@@ -467,7 +468,7 @@ function NSXPage({ onRefresh }) {
                       </span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -529,7 +530,7 @@ function NSXPage({ onRefresh }) {
                       </span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -588,7 +589,7 @@ function NSXPage({ onRefresh }) {
                       </span>
                     </div>
                     <div className="last-updated">
-                      {new Date(item.last_updated).toLocaleString()}
+                      {formatDateTime(item.last_updated, userTimezone)}
                     </div>
                     <div>
                       <button 
@@ -612,6 +613,7 @@ function NSXPage({ onRefresh }) {
           component={selectedComponent}
           technology="nsx-t"
           onClose={() => setSelectedComponent(null)}
+          userTimezone={userTimezone}
         />
       )}
     </div>
