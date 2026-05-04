@@ -24,15 +24,11 @@ import DevelopmentWarningModal from './components/DevelopmentWarningModal';
 import { formatDateTime } from './utils/dateUtils';
 import './App.css';
 
-// Configure axios to connect to backend
+// Configure axios to connect to backend.
+// Empty baseURL = same-origin requests, so /api/... is routed by the dev proxy
+// (setupProxy.js) in development and by nginx in production.
 axios.defaults.withCredentials = true;
-
-// Dynamically set API endpoint based on current hostname
-const apiHost = window.location.hostname;
-const apiPort = '5000';
-axios.defaults.baseURL = `http://${apiHost}:${apiPort}`;
-
-console.log('API endpoint:', axios.defaults.baseURL);
+axios.defaults.baseURL = '';
 
 // Private route wrapper component
 function PrivateRoute({ children }) {
