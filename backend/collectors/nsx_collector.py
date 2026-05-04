@@ -367,6 +367,11 @@ class NSXCollector:
             print(f"Error getting cluster nodes from {hostname}: {str(e)}")
             return []
     
+    def test_connection(self, hostname, username, password):
+        """Test connection to an NSX Manager and return its version."""
+        info = self.get_manager_version(hostname, username, password)
+        return info['version'] if info else None
+
     def collect_from_manager(self, manager_config):
         """Collect all data from a single NSX Manager"""
         results = []
