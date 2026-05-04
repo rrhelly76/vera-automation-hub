@@ -476,6 +476,14 @@ class VCDCollector:
             print(f"Error getting cells from {hostname}: {str(e)}")
             return []
     
+    def test_connection(self, hostname, username, password, org):
+        """Test connection to a vCD instance and return its version."""
+        session_token, api_version = self.get_api_session(hostname, username, password, org)
+        if not session_token:
+            return None
+        info = self.get_vcd_version(hostname, session_token, api_version)
+        return info['version'] if info else None
+
     def collect_from_vcd(self, vcd_config):
         """Collect all data from a single vCD instance"""
         results = []
