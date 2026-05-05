@@ -118,7 +118,7 @@ function AppContent() {
       <nav className="navbar">
         <div className="nav-container">
           <Link to="/" className="nav-logo">
-            Databank Cloud Version Tracker
+            Databank Vera Automation Hub
           </Link>
           <ul className="nav-menu">
             <li className="nav-item">

@@ -1,8 +1,8 @@
-# CLAUDE.md - CloudVersionTracker AI Assistant Guide
+# CLAUDE.md - Databank Vera Automation Hub AI Assistant Guide
 
 ## Project Overview
 
-**CloudVersionTracker** is a full-stack web application designed to track and monitor version information across VMware cloud infrastructure technologies. It collects, stores, and displays version data for vSphere (vCenter, ESXi hosts, Clusters), NSX-T, vCloud Director, and Usage Meter.
+**Databank Vera Automation Hub** (formerly CloudVersionTracker) is a full-stack web application designed to track and monitor version information across VMware cloud infrastructure technologies. It collects, stores, and displays version data for vSphere (vCenter, ESXi hosts, Clusters), NSX-T, vCloud Director, and Usage Meter.
 
 ### Key Features
 - Automated daily data collection from VMware infrastructure
@@ -55,7 +55,7 @@
 ## Directory Structure
 
 ```
-CloudVersionTracker/
+vera-automation-hub/
 ├── backend/
 │   ├── app.py                          # Main Flask application
 │   ├── ldap_auth.py                    # LDAP authentication module
@@ -726,10 +726,10 @@ Each technology config page includes "Test Connection" button:
 5. **Systemd Service** (Example):
    ```ini
    [Unit]
-   Description=CloudVersionTracker Backend
+   Description=Vera Automation Hub Backend
 
    [Service]
-   WorkingDirectory=/opt/cloudversiontracker/backend
+   WorkingDirectory=/opt/vera/backend
    ExecStart=/usr/bin/python3 app.py
    Restart=always
 
@@ -829,7 +829,7 @@ curl -X POST http://localhost:5000/api/pull/vsphere -b cookies.txt
 
 ## Conclusion
 
-This guide should provide AI assistants with comprehensive understanding of the CloudVersionTracker codebase. The application follows standard web development patterns with clear separation between backend (Flask/Python) and frontend (React).
+This guide should provide AI assistants with comprehensive understanding of the Vera Automation Hub codebase. The application follows standard web development patterns with clear separation between backend (Flask/Python) and frontend (React).
 
 When making changes:
 1. Always test locally first

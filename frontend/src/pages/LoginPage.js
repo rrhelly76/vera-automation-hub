@@ -32,7 +32,7 @@ function LoginPage() {
     <div className="login-page">
       <div className="login-container">
         <div className="login-header">
-          <h1>Databank Cloud Version Tracker</h1>
+          <h1>Databank Vera Automation Hub</h1>
           <p>Please sign in to continue</p>
         </div>
         

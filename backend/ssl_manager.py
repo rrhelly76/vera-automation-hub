@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-SSL Certificate Manager for Databank Cloud Version Tracker
+SSL Certificate Manager for Databank Vera Automation Hub
 Generates self-signed certificates and manages SSL configuration
 """
 
