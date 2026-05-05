@@ -2113,7 +2113,7 @@ if __name__ == '__main__':
             print("SSL will be disabled. Install cryptography package to enable SSL.")
     
     print("=" * 60)
-    print("Databank Cloud Version Tracker Backend")
+    print("Databank Vera Automation Hub Backend")
     print("=" * 60)
     print("Backend started successfully!")
     
