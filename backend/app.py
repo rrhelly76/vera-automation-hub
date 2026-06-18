@@ -46,11 +46,14 @@ app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-producti
 # Initialize LDAP authenticator
 ldap_auth = None
 
-# Session cookie configuration - permissive for development with cross-protocol
+def _env_bool(name, default):
+    return os.environ.get(name, str(default)).lower() in ('true', '1', 'yes')
+
+# Session cookie configuration - env-driven so prod can harden via cvt.env
 app.config.update(
-    SESSION_COOKIE_SECURE=False,  # Allow HTTP
-    SESSION_COOKIE_HTTPONLY=False,  # Allow JS access for debugging
-    SESSION_COOKIE_SAMESITE='Lax',  # Lax for same-site
+    SESSION_COOKIE_SECURE=_env_bool('SESSION_COOKIE_SECURE', False),
+    SESSION_COOKIE_HTTPONLY=_env_bool('SESSION_COOKIE_HTTPONLY', True),
+    SESSION_COOKIE_SAMESITE=os.environ.get('SESSION_COOKIE_SAMESITE', 'Lax'),
     SESSION_COOKIE_PATH='/',
 )
 
